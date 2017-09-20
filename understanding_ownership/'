@@ -1,0 +1,48 @@
+fn get_literal() -> &'static str {
+    "hello"
+}
+
+fn main() {
+    let s_hit = get_literal();
+    let s_lit = "String literal";
+    let mut s = String::from("hello");
+    s.push_str(", world!");
+    let s2 = s.clone();
+    println!("{}, {}, {}, {}", s, s2, s_lit, s_hit);
+    takes_ownership(s2); // s2 moved, no longer valid
+    let i: i32 = 5;
+    makes_copy(i);
+    println!("still alive: {}", i);
+    let mut s3 = gives_ownership();
+    println!("{}", calculate_length(&mut s3));
+    takes_ownership(s3);
+}
+
+fn takes_ownership(s: String) {
+    println!("{}", s);
+}
+
+fn makes_copy(i: i32) {
+    println!("{}", i);
+}
+
+fn gives_ownership() -> String {
+    String::from("hello")
+}
+
+fn calculate_length(s: &mut String) -> usize { // s ia reference to a string, so not owned
+    s.push_str("MUTATED");
+    s.len()
+}
+
+fn first_word(s: &String) -> &str {
+    let bytes = s.as_bytes();
+
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return s[0..i];
+        }
+    }
+
+    s[0..s.len()]
+}
