@@ -1,0 +1,6 @@
+[package]
+name = "closures_with_rc"
+version = "0.1.0"
+authors = ["Adam Labbe <adamlabbe@gmail.com>"]
+
+[dependencies]
